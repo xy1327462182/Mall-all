@@ -1,11 +1,12 @@
-import React from 'react'
+import React,{ Component } from 'react'
+import Login from './pages/Login'
 
-function App() {
-  return (
-    <div>
-      111
-    </div>
-  )
+class App extends Component {
+  render() {
+    return (
+      <div className="App"><Login></Login></div>
+    )
+  }
 }
 
 export default App
