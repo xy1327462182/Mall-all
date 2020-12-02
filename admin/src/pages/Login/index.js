@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
 
 import { Form, Input, Button, Row, Col } from 'antd';
@@ -8,28 +7,23 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import './index.css'
 
 import * as actionCreators from './store/actionCreator'
-console.log(actionCreators);
 
 class Login extends Component {
   constructor(props) {
     super(props)
   }
-  onFinish(values) {
-    console.log('Received values of form: ', values);
-  }
-  
   componentDidMount() {
     //获取验证码
     this.props.handelgetCaptcha()
   }
   render() {
-    const { captcha, handelgetCaptcha } = this.props
+    const { captcha, isFetching, handelgetCaptcha, handelFinish } = this.props
     return (
       <div className="Login">
         <Form
           name="normal_login"
           className="login-form"
-          onFinish={this.onFinish}
+          onFinish={handelFinish}
         >
           <Form.Item
             name="username"
@@ -93,7 +87,13 @@ class Login extends Component {
 
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" id="Login_btn" className="login-form-button">
+            <Button 
+              type="primary" 
+              htmlType="submit" 
+              id="Login_btn" 
+              className="login-form-button"
+              loading={isFetching}
+              >
               登录
             </Button>
           </Form.Item>
@@ -105,7 +105,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    captcha: state.get('login').get('captcha')
+    captcha: state.get('login').get('captcha'),
+    isFetching: state.get('login').get('isFetching')
   }
 }
 
@@ -113,6 +114,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handelgetCaptcha: () => {
       dispatch(actionCreators.getCaptchaAction())
+    },
+    handelFinish: (values) => {
+      dispatch(actionCreators.getLoginAction(values))
     }
   }
 }
