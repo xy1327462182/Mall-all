@@ -3,7 +3,8 @@ import axios from 'axios'
 
 import { message } from 'antd';
 
-import { saveUsername } from '../../../utils'
+import { saveUsername } from 'util'
+import api from 'api'
 
 const captchaAction = (data) => ({
     type: actionTypes.SET_CAPTCHA,
@@ -21,11 +22,8 @@ const loginEndAction = () => ({
 //获取验证码
 export const getCaptchaAction = () => {
   return async function (dispatch) {
-    const result = await axios({
-      method: 'get',
-      url: '/v1/users/captcha',
-    });
-    const { code, data } = result.data
+    const result = await api.getCaptcha()
+    const { code, data } = result
     if (code == 0) {
       dispatch(captchaAction(data))
     }
@@ -38,26 +36,21 @@ export const getLoginAction = (values) => {
   return async function (dispatch) {
     //请求登录开始，loading 状态改为true
     dispatch(loginStartAction())
-    const result = await axios({
-      method: 'post',
-      url: '/v1/users/login',
-      data: {
-        username,
-        password,
-        captchaCode: captcha,
-        role: 'admin',
-        channel: 'page'
-      }
-    });
-    const data = result.data
-    if (data.code == 1) {
+    const result = await api.login({
+      username,
+      password,
+      captchaCode: captcha,
+      role: 'admin',
+      channel: 'page'
+    })
+    if (result.code == 1) {
       //信息错误
-      message.error(data.message,1)
-    } else if (data.code == 0) {
+      message.error(result.message,1)
+    } else if (result.code == 0) {
       //登录成功
       message.success('恭喜您登录成功',1)
       //保存用户登录状态
-      saveUsername(data.data.username)
+      saveUsername(result.data.username)
     }
     dispatch(loginEndAction())
   }
