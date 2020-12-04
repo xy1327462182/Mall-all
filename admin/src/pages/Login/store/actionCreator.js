@@ -51,6 +51,8 @@ export const getLoginAction = (values) => {
       message.success('恭喜您登录成功',1)
       //保存用户登录状态
       saveUsername(result.data.username)
+      //跳转到首页
+      window.location.href = '/'
     }
     dispatch(loginEndAction())
   }
