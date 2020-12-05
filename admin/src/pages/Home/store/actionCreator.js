@@ -6,11 +6,11 @@ const setCounts = (payload) => ({
   payload
 })
 
+//前台首页获取数据
 export const getCountsAction = () => {
   return async function (dispatch) {
     const { code, data } = await api.getCounts()
     if (code == 0) {
-      console.log(data);
       dispatch(setCounts(data))
     }
   }

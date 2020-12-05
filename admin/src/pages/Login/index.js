@@ -6,7 +6,7 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 
 import './index.css'
 
-import { actionCreators } from './store'
+import { actionCreator } from './store'
 
 class Login extends Component {
   constructor(props) {
@@ -113,10 +113,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handelgetCaptcha: () => {
-      dispatch(actionCreators.getCaptchaAction())
+      dispatch(actionCreator.getCaptchaAction())
     },
     handelFinish: (values) => {
-      dispatch(actionCreators.getLoginAction(values))
+      dispatch(actionCreator.getLoginAction(values))
     }
   }
 }

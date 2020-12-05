@@ -5,17 +5,27 @@ import { DownOutlined } from '@ant-design/icons';
 const { Header } = Layout;
 
 import './index.css'
-import { getUsername } from 'util'
+import { getUsername, delUsername, goLogin } from 'util'
+import api from 'api'
 
 class CustomHeader extends Component {
   constructor(props) {
     super(props)
+    this.handelLogout = this.handelLogout.bind(this)
+  }
+  async handelLogout() {
+    //发送请求登出
+    await api.logout()
+    //删除本地存储
+    delUsername()
+    //跳转到登录页
+    goLogin()
   }
   render() {
     const menu = (
       <Menu>
         <Menu.Item key="0">
-          <a onClick={() => console.log(111)} >退出</a>
+          <a onClick={this.handelLogout}>退出</a>
         </Menu.Item>
       </Menu>
     );

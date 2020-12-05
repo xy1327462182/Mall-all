@@ -2,7 +2,7 @@ import * as actionTypes  from './actionTypes'
 
 import { message } from 'antd';
 
-import { saveUsername } from 'util'
+import { saveUsername, goHome } from 'util'
 import api from 'api'
 
 const captchaAction = (data) => ({
@@ -51,7 +51,7 @@ export const getLoginAction = (values) => {
       //保存用户登录状态
       saveUsername(result.data.username)
       //跳转到首页
-      window.location.href = '/'
+      goHome()
     }
     dispatch(loginEndAction())
   }

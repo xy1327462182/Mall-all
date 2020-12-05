@@ -12,3 +12,13 @@ export const getUsername = () => {
 export const delUsername = () => {
   window.localStorage.removeItem('username')
 }
+
+//去登录页
+export const goLogin = () => {
+  window.location.href = '/login'
+}
+
+//去后台首页
+export const goHome = () => {
+  window.location.href = '/'
+}

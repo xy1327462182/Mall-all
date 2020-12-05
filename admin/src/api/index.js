@@ -2,6 +2,7 @@ import axios from 'axios'
 
 //引入配置文件数据
 import { API_CONFIG, SERVER, VERSION } from './config'
+import { delUsername, goLogin } from 'util'
 
 const getApiObj = (apiConfig) => {
   let apiObj = {}
@@ -21,7 +22,16 @@ const request = (url, method, data) => {
   return new Promise((resolve, reject)=>{
     axios({ method, url, data })
     .then(result=>{
-      resolve(result.data)
+      const data = result.data
+      if (data.code == 10) {
+        //没有权限 删除本地存储
+        delUsername()
+        //跳转到登录页
+        goLogin()
+        reject('没有权限')
+      } else {
+        resolve(data)
+      }
     })
     .catch(err=>{
       reject(err)
