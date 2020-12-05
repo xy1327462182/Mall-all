@@ -4,5 +4,6 @@ export const VERSION = 'v1'
 
 export const API_CONFIG = {
   getCaptcha: ['/users/captcha', 'get'],
-  login: ['/users/login', 'post']
+  login: ['/users/login', 'post'],
+  getCounts: ['/counts', 'get']
 }

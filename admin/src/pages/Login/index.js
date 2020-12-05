@@ -6,7 +6,7 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 
 import './index.css'
 
-import * as actionCreators from './store/actionCreator'
+import { actionCreators } from './store'
 
 class Login extends Component {
   constructor(props) {

@@ -29,5 +29,4 @@ const request = (url, method, data) => {
   })
 }
 
-
 export default getApiObj(API_CONFIG)

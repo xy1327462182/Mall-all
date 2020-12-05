@@ -1,0 +1,11 @@
+.CustomHeader .logo {
+  float: left;
+  font-size: 40px;
+  font-weight: 600;
+  color: #1DA57A;
+  cursor: pointer;
+}
+
+.CustomHeader .logout {
+  float: right;
+}
