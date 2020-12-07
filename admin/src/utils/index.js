@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 //保存用户登录信息
 export const saveUsername = (username) => {
   window.localStorage.setItem('username', username)
@@ -22,3 +24,6 @@ export const goLogin = () => {
 export const goHome = () => {
   window.location.href = '/'
 }
+
+//时间格式化
+export const formatDate = date => moment(date).format('YYYY-MM-DD HH:mm:ss')

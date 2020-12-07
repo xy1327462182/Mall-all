@@ -20,7 +20,13 @@ const getApiObj = (apiConfig) => {
 
 const request = (url, method, data) => {
   return new Promise((resolve, reject)=>{
-    axios({ method, url, data })
+    const options = { method, url }
+    if (method.toUpperCase() == 'GET') {
+      options.params = data
+    } else {
+      options.data = data
+    }
+    axios(options)
     .then(result=>{
       const data = result.data
       if (data.code == 10) {

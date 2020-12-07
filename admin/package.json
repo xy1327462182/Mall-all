@@ -36,6 +36,7 @@
     "antd": "^4.8.5",
     "axios": "^0.21.0",
     "immutable": "^4.0.0-rc.12",
+    "moment": "^2.29.1",
     "path-to-regexp": "^6.2.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

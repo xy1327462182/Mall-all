@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Layout, Breadcrumb, Row, Col, Card } from 'antd';
 const { Content } = Layout;
 
+import './index.css'
+
 import CustomLayout from 'components/custom-layout'
 import { actionCreator } from './store'
 
@@ -19,14 +21,14 @@ class Home extends Component {
       <CustomLayout>
         <div className="Home">
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>首页</Breadcrumb.Item>
           </Breadcrumb>
           <Content
             className="site-layout-background"
             style={{
               padding: 24,
               margin: 0,
-              minHeight: 280,
+              minHeight: 542,
             }}
           >
             <Row gutter={16}>

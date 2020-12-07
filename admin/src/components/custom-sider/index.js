@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom'
 import { Layout, Menu } from 'antd';
 const { Sider } = Layout;
 
+import './index.css'
+
 class CustomSider extends Component {
   constructor(props) {
     super(props)
@@ -13,11 +15,10 @@ class CustomSider extends Component {
         <Sider width={200} className="site-layout-background">
           <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
             style={{ height: '620px', borderRight: 0 }}
           >
             <Menu.Item key="1">
-              <NavLink to="/">首页</NavLink>
+              <NavLink exact to="/">首页</NavLink>
             </Menu.Item>
             <Menu.Item key="2">
               <NavLink to="/user">用户管理</NavLink>
