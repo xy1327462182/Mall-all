@@ -7,5 +7,6 @@ export const API_CONFIG = {
   getCounts: ['/counts', 'get'],
   login: ['/users/login', 'post'],
   logout: ['/users/logout', 'get'],
-  getUserList: ['/users/list', 'get']
+  getUserList: ['/users/list', 'get'],
+  UpdateUserActive: ['/users/isActive', 'put']
 }

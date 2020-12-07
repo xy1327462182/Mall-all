@@ -15,6 +15,7 @@ class User extends Component {
     this.props.getUserList(1)
   }
   render() {
+    const { isFetching,current,list,pageSize,total,getUserList,handelUpdateUserActive } = this.props
     const columns = [
       {
         title: '用户名',
@@ -31,7 +32,16 @@ class User extends Component {
         title: '是否有效用户',
         dataIndex: 'isActive',
         key: 'isActive',
-        render: isActive => <Switch checkedChildren="是" unCheckedChildren="否" defaultChecked={isActive == '1' ? true: false} />
+        render: isActive => <Switch 
+        checkedChildren="是" 
+        unCheckedChildren="否" 
+        defaultChecked={isActive == '1' ? true: false}
+        onChange={(checked, recored) => {
+          //更新状态
+          const newActive = checked ? '1' : '0'
+          handelUpdateUserActive(recored._id, newActive)
+        }}
+        />
       },
       {
         title: '邮箱',
@@ -55,8 +65,7 @@ class User extends Component {
         render: createdAt => formatDate(createdAt)
       },
     ]
-    const { isFetching, current,list,pageSize,total,getUserList } = this.props
-    console.log(isFetching);
+    
     const dataSource = list
     return (
       <CustomLayout>
@@ -111,6 +120,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUserList: (page) => {
       dispatch(actionCreator.getUserListAction(page))
+    },
+    handelUpdateUserActive: (id, newActive) => {
+      dispatch(actionCreator.getUpdateUserActiveAction(id, newActive))
     }
   }
 }

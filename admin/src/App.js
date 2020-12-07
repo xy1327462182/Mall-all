@@ -6,23 +6,25 @@ import { getUsername } from 'util'
 import Login from 'pages/Login'
 import Home from 'pages/Home'
 import User from 'pages/User'
+import Category from 'pages/Category'
 import NotFound from 'pages/NotFound'
+
+//登录了才能访问首页
+const ProtectRoute = ({component: Component, ...rest}) => (<Route {...rest} render={()=> getUsername() ? <Component/> : <Redirect to="/login" />} />)
+
+//未登录访问首页跳转到登录页
+const LoginRoute = ({component: Component, ...rest}) => (<Route {...rest} render={() => getUsername() ? <Redirect to="/" /> : <Component/>} />)
 
 class App extends Component {
   render() {
-    //登录了才能访问首页
-    const ProtectRoute = ({component: Component, ...rest}) => (<Route {...rest} render={()=> getUsername() ? <Component/> : <Redirect to="/login" />} />)
-
-    //未登录访问首页跳转到登录页
-    const LoginRoute = ({component: Component, ...rest}) => (<Route {...rest} render={() => getUsername() ? <Redirect to="/" /> : <Component/>} />)
-
     return (
       <div className="App">
         <Router>
           <Switch>
-            <ProtectRoute path="/" exact component={Home} />
+            <ProtectRoute exact path="/" component={Home} />
+            <ProtectRoute path="/user" component={User} />
+            <ProtectRoute path="/category" component={Category} />
             <LoginRoute path="/login" component={Login} />
-            <ProtectRoute path="/user" exact component={User} />
             <Route path="*" component={NotFound} />
           </Switch>
         </Router>

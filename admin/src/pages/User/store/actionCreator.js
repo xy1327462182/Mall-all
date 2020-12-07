@@ -33,3 +33,26 @@ export const getUserListAction = (page) => {
     }
   }
 }
+
+//更新用户状态
+export const getUpdateUserActiveAction = (id, newActive) => {
+  return async function (dispatch, getState) {
+    const page = getState().get('user').get('current')
+    dispatch(pageRequestStartAction)
+    try{
+      const result = await api.UpdateUserActive({
+        id, 
+        newActive, 
+        page
+      })
+      if (result.code == 0) {
+        dispatch(setPageAction(result.data))
+        message.success('更新成功', 1)
+      }
+    }catch(e){
+      message.error('网络请求失败', 1)
+    }finally{
+      dispatch(pageRequestEndAction)
+    }
+  }
+}
