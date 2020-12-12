@@ -7,10 +7,19 @@ const defaultState = fromJS({
   pageSize: 0,
   total: 0,
   isFetching: false,
-  categories: []
+  categories: [],
+  fileListObj: {
+    fileList: []
+  },
 })
 
 function reducer(state = defaultState, action) {
+  if (action.type == actionTypes.SET_FILELIST) {
+    const fileListObj = fromJS({
+      fileList: action.payload
+    })
+    return state.set('fileListObj', fileListObj)
+  }
   if (action.type == actionTypes.SET_LEVEL_CATEGORIES) {
     return state.set('categories', action.payload)
   }

@@ -15,11 +15,11 @@ function getBase64(file) {
 function beforeUpload(file) {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
   if (!isJpgOrPng) {
-      message.error('只能上传 JPG/PNG 文件!');
+    message.error('只能上传 JPG/PNG 文件!');
   }
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-      message.error('文件大大小不能超过 2MB!');
+    message.error('文件大大小不能超过 2MB!');
   }
   return isJpgOrPng && isLt2M;
 }
@@ -31,7 +31,6 @@ class UploadImage extends Component {
       previewVisible: false,
       previewImage: '',
       previewTitle: '',
-      fileList: []
     }
     this.handleCancel = this.handleCancel.bind(this)
     this.handlePreview = this.handlePreview.bind(this)
@@ -51,18 +50,41 @@ class UploadImage extends Component {
     });
   }
   handleChange({ fileList }) {
+    const { getImageUrlList,handelFileList } = this.props
+    console.log('fileList::', fileList);
     const imageUrlList = fileList.map(item => {
       if (item.response && item.response.status == 'done') {
         return item.response.url
       }
     }).join(',')
     //将处理好的字符串返回
-    this.props.getImageUrlList(imageUrlList)
-    this.setState({ fileList })
+    getImageUrlList(imageUrlList)
+    // this.setState({ fileList })
+    handelFileList(fileList)
   }
+  /*
+  static getDerivedStateFromProps(props, state) {
+    console.log(state);
+    if (state.isUpdate) {
+      console.log('null');
+      return null
+    } else {
+      console.log('pors');
+      return {
+        isUpdate: true,
+        fileList: props.icon ? [{
+          uid: '-1',
+          name: 'image.png',
+          status: 'done',
+          url: props.icon,
+        }] : []
+      }
+    }
+  }
+  */
   render() {
-    const { previewVisible, previewImage, fileList, previewTitle } = this.state;
-    const { max, action } = this.props
+    const { previewVisible, previewImage, previewTitle } = this.state;
+    const { max, action, fileList } = this.props
     const uploadButton = (
       <div>
         <PlusOutlined />

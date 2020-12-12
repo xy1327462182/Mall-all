@@ -7,13 +7,18 @@ const { Content } = Layout;
 import CustomLayout from 'components/custom-layout'
 import UploadImage from 'components/upload-image'
 import { CATEGORY_ICON_UPLOAD } from 'api/config'
+import api from 'api'
 import * as actionCreator from './store/actionCreator'
 
 class CategorySave extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      id: this.props.match.params.categoryId,
+    }
     this.getImageUrlList = this.getImageUrlList.bind(this)
     this.finish = this.finish.bind(this)
+    this.handelCategoryDetail = this.handelCategoryDetail.bind(this)
     this.formRef = React.createRef()
   }
   getImageUrlList(imageUrlList) {
@@ -22,10 +27,37 @@ class CategorySave extends Component {
     })
   }
   finish(values) {
+    if (this.state.id) {
+      values.id = this.state.id
+    }
     this.props.handelSave(values)
   }
   componentDidMount() {
+    if (this.state.id) {
+      //获取分类详情
+      this.handelCategoryDetail(this.state.id)
+    } else {
+      this.props.handelFileList([])
+    }
     this.props.handelLevelCategories()
+  }
+  async handelCategoryDetail(id) {
+    const result = await api.getCategoryDetail({ id })
+    if (result.code == 0) {
+      //设置表单各个字段的值
+      this.formRef.current.setFieldsValue({
+        pid: result.data.pid,
+        name: result.data.name,
+        mobileName: result.data.mobileName,
+        icon: result.data.icon,
+      })
+      this.props.handelFileList([{
+        uid: '-1',
+        name: 'image.png',
+        status: 'done',
+        url: result.data.icon
+      }])
+    }
   }
   render() {
     const layout = {
@@ -42,14 +74,17 @@ class CategorySave extends Component {
         span: 16,
       },
     };
-    const { categories } = this.props
+    const { categories,fileListObj, handelFileList } = this.props
+    const fileList = fileListObj.fileList
+    
+    const { id } = this.state
     return (
       <CustomLayout>
         <div className="CategoryList">
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>首页</Breadcrumb.Item>
             <Breadcrumb.Item>分类管理</Breadcrumb.Item>
-            <Breadcrumb.Item>添加分类</Breadcrumb.Item>
+            <Breadcrumb.Item>{ id ? '修改分类': '添加分类'}</Breadcrumb.Item>
           </Breadcrumb>
           <Content
             className="site-layout-background"
@@ -118,6 +153,8 @@ class CategorySave extends Component {
                 <UploadImage 
                   action={CATEGORY_ICON_UPLOAD}
                   max={1}
+                  fileList={fileList}
+                  handelFileList={handelFileList}
                   getImageUrlList={this.getImageUrlList}
                 />
               </Form.Item>
@@ -136,12 +173,16 @@ class CategorySave extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.get('category').get('categories')
+    categories: state.get('category').get('categories'),
+    fileListObj: state.get('category').get('fileListObj').toJS()
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    handelFileList: (fileList) => {
+      dispatch(actionCreator.getFileListAction(fileList))
+    },
     handelSave: (values) => {
       dispatch(actionCreator.getSaveAction(values))
     },

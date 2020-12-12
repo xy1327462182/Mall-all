@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import CategoryList from './list'
 import CategorySave from './save'
+import './index.css'
 
 class Category extends Component {
   constructor(props) {
