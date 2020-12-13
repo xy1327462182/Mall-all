@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom'
 import CustomLayout from 'components/custom-layout'
 import { actionCreator } from './store'
 
-class AttrList extends Component {
+class ProductList extends Component {
   constructor(props){
     super(props)
   }
   componentDidMount() {
-    this.props.getAttrList(1)
+    // this.props.getAttrList(1)
   }
   render() {
     const { 
@@ -20,9 +20,7 @@ class AttrList extends Component {
       current,
       list,
       pageSize,
-      total,
-      getAttrList,
-      handelUpdateOrder
+      total
     } = this.props
     const dataSource = list
 
@@ -72,7 +70,7 @@ class AttrList extends Component {
         <div className="AttrList">
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>首页</Breadcrumb.Item>
-            <Breadcrumb.Item>属性管理</Breadcrumb.Item>
+            <Breadcrumb.Item>商品管理</Breadcrumb.Item>
           </Breadcrumb>
           <Content
             className="site-layout-background"
@@ -83,7 +81,7 @@ class AttrList extends Component {
             }}
           >
             <Button type="primary" style={{float: 'right', marginBottom: '8px'}}>
-              <Link to="/attr/save">新增属性</Link>
+              <Link to="/product/save">新增商品</Link>
             </Button>
             <Table 
             columns={columns}
@@ -112,23 +110,18 @@ class AttrList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    current: state.get('attr').get('current'),
-    list: state.get('attr').get('list'),
-    pageSize: state.get('attr').get('pageSize'),
-    total: state.get('attr').get('total'),
-    isFetching: state.get('attr').get('isFetching')
+    current: state.get('product').get('current'),
+    list: state.get('product').get('list'),
+    pageSize: state.get('product').get('pageSize'),
+    total: state.get('product').get('total'),
+    isFetching: state.get('product').get('isFetching')
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAttrList: (page) => {
-      dispatch(actionCreator.getAttrListAction(page))
-    },
-    handelUpdateOrder: (id, newOrder) => {
-      dispatch(actionCreator.getUpdateAttrOrderAction(id, newOrder))
-    },
+    
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AttrList)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList)

@@ -39,6 +39,7 @@ class CategorySave extends Component {
     } else {
       this.props.handelFileList([])
     }
+    //获取分类选择
     this.props.handelLevelCategories()
   }
   async handelCategoryDetail(id) {
@@ -151,6 +152,7 @@ class CategorySave extends Component {
                 ]}
               >
                 <UploadImage 
+                  name="file"
                   action={CATEGORY_ICON_UPLOAD}
                   max={1}
                   fileList={fileList}

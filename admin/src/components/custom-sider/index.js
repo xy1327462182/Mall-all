@@ -5,7 +5,8 @@ import {
   UserOutlined,
   DesktopOutlined,
   BarsOutlined,
-  ControlOutlined
+  ControlOutlined,
+  ShoppingOutlined
 } from '@ant-design/icons';
 const { Sider } = Layout;
 
@@ -34,6 +35,9 @@ class CustomSider extends Component {
             </Menu.Item>
             <Menu.Item key="4">
               <NavLink to="/attr"><ControlOutlined />属性管理</NavLink>
+            </Menu.Item>
+            <Menu.Item key="5">
+              <NavLink to="/product"><ShoppingOutlined />商品管理</NavLink>
             </Menu.Item>
           </Menu>
         </Sider>

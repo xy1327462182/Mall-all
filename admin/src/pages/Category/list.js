@@ -36,7 +36,7 @@ class CategoryList extends Component {
         key: 'name',
         width: '20%',
         render: (name, record) => <Input
-          style={{width: '70%'}}
+          style={{width: '60%'}}
           defaultValue={name}
           onBlur={(ev)=>{
             if (ev.target.value != name) {
@@ -51,7 +51,7 @@ class CategoryList extends Component {
         key: 'mobileName',
         width: '20%',
         render: (mobileName, record) => <Input
-          style={{width: '70%'}}
+          style={{width: '60%'}}
           defaultValue={mobileName}
           onBlur={(ev)=>{
             if (ev.target.value != mobileName) {
@@ -144,7 +144,7 @@ class CategoryList extends Component {
             }}
           >
             <Button type="primary" style={{float: 'right', marginBottom: '8px'}}>
-              <Link to="/category/save">新增</Link>
+              <Link to="/category/save">新增分类</Link>
             </Button>
             <Table 
             columns={columns}

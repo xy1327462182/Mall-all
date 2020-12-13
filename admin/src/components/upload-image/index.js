@@ -51,7 +51,6 @@ class UploadImage extends Component {
   }
   handleChange({ fileList }) {
     const { getImageUrlList,handelFileList } = this.props
-    console.log('fileList::', fileList);
     const imageUrlList = fileList.map(item => {
       if (item.response && item.response.status == 'done') {
         return item.response.url
@@ -62,29 +61,9 @@ class UploadImage extends Component {
     // this.setState({ fileList })
     handelFileList(fileList)
   }
-  /*
-  static getDerivedStateFromProps(props, state) {
-    console.log(state);
-    if (state.isUpdate) {
-      console.log('null');
-      return null
-    } else {
-      console.log('pors');
-      return {
-        isUpdate: true,
-        fileList: props.icon ? [{
-          uid: '-1',
-          name: 'image.png',
-          status: 'done',
-          url: props.icon,
-        }] : []
-      }
-    }
-  }
-  */
   render() {
     const { previewVisible, previewImage, previewTitle } = this.state;
-    const { max, action, fileList } = this.props
+    const { max, name,action, fileList } = this.props
     const uploadButton = (
       <div>
         <PlusOutlined />
@@ -95,7 +74,7 @@ class UploadImage extends Component {
     return (
       <Fragment>
         <Upload
-          name="file"
+          name={name}
           action={action}
           listType="picture-card"
           fileList={fileList}

@@ -12,6 +12,10 @@ const setPage = (payload) => ({
   payload
 })
 
+const clearPage = () => ({
+  type: actionTypes.CLEAR_PAGE,
+})
+
 const pageRequestStartAction = {
   type: actionTypes.PAGE_REQUEST_START
 }
@@ -40,6 +44,7 @@ export const getSaveAction = (values) => {
       if (result.code == 0) {
         message.success(successMessage, 1)
         dispatch(setCategories(result.data))
+        dispatch(clearPage())
       } else {
         message.error(result.message, 1)
       }
@@ -54,7 +59,9 @@ export const getSaveAction = (values) => {
 export const getLevelCategoriesAction = () => {
   return async function (dispatch) {
     try {
-      const result = await api.getLevelCategories()
+      const result = await api.getLevelCategories({
+        level: 2
+      })
       if (result.code == 0) {
         dispatch(setCategories(result.data))
       }

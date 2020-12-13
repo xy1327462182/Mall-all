@@ -8,6 +8,7 @@ import Home from 'pages/Home'
 import User from 'pages/User'
 import Category from 'pages/Category'
 import Attr from 'pages/Attr'
+import Product from 'pages/Product'
 import NotFound from 'pages/NotFound'
 
 //登录了才能访问首页
@@ -26,6 +27,7 @@ class App extends Component {
             <ProtectRoute path="/user" component={User} />
             <ProtectRoute path="/category" component={Category} />
             <ProtectRoute path="/attr" component={Attr} />
+            <ProtectRoute path="/product" component={Product} />
             <LoginRoute path="/login" component={Login} />
             <Route path="*" component={NotFound} />
           </Switch>
