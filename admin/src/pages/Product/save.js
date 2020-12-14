@@ -86,35 +86,45 @@ class ProductSave extends Component {
   async handelProductDetail(id) {
     const result = await api.getProductDetail({ id })
     if (result.code == 0) {
+      console.log('ressult.data::', result.data);
+      const { category,name,description,price,stock,payNums,attrs,mainImage,images,detail } = result.data
       //设置表单各个字段的值
       this.formRef.current.setFieldsValue({
-        category: result.data.category._id,
-        name: result.data.name,
-        description: result.data.description,
-        price: result.data.price,
+        category: category._id,
+        name,
+        description,
+        price,
+        stock,
+        payNums,
+        attrs: attrs.map(item=>item._id),
+        mainImage,
+        images,
+        detail
       })
+      //设置属性
+      this.props.updateAttrTargetKeys(attrs.map(item=>item._id))
+      //设置主图
+      this.props.handelMainImageFileList([{
+        uid: '-1',
+        name: 'image.png',
+        status: 'done',
+        url: mainImage
+      }])
+      //设置详情图
+      const deFileList = images.split(',').map((item,index)=>({
+        uid: index,
+        name: index+'image.png',
+        response: {
+          status: 'done',
+          url: item
+        },
+        url: item
+      }))
+      this.props.handelDetailImageFileList(deFileList)
+      //设置富文本
+      this.props.handelRichData(detail)
     }
   }
-  /*
-  code: 0
-data:
-attrs: [{…}]
-category: {_id: "5fd6ed3335ae7a3a703cc980", name: "小米手机"}
-description: "【品质好物】RedmiK305G版，120Hz流速屏【note9pro火热抢购中】"
-detail: "<figure class="image"><img src="http://127.0.0.1:3000/product-images/1607921678491.jpg"></figure><figure class="image"><img src="http://127.0.0.1:3000/product-images/1607921681426.jpg"></figure><figure class="image"><img src="http://127.0.0.1:3000/product-images/1607921683523.jpg"></figure><figure class="image"><img src="http://127.0.0.1:3000/product-images/1607921686027.jpg"></figure>"
-images: "http://127.0.0.1:3000/product-images/1607921641218.jpg,http://127.0.0.1:3000/product-images/1607921643723.jpg,http://127.0.0.1:3000/product-images/1607921645698.jpg,http://127.0.0.1:3000/product-images/1607921648344.jpg"
-isHot: "1"
-isShow: "1"
-mainImage: "http://127.0.0.1:3000/product-images/1607921638627.jpg"
-name: "Redmi K30 5G双模 120Hz流速屏 骁龙765G 前置挖孔双摄 索尼6400万后置四摄 30W快充"
-order: 0
-payNums: 578
-price: 1799
-status: "1"
-stock: 25415
-_id: "5fd6f01835ae7a3a703cc985"
-  */
-
   componentDidMount() {
     //获取分类选择
     this.props.handelLevelCategories()
@@ -136,7 +146,6 @@ _id: "5fd6f01835ae7a3a703cc985"
       detailImagesFileList,
       handelDetailImageFileList,
       richData,
-      getRichData
     } = this.props
 
     let attrSelectedKeys, attrTargetKeys, ProMainImageFileList, ProDetailImagesFileList
@@ -155,7 +164,7 @@ _id: "5fd6f01835ae7a3a703cc985"
 
     return (
       <CustomLayout>
-        <div className="AttrList">
+        <div className="ProductList">
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>首页</Breadcrumb.Item>
             <Breadcrumb.Item>商品管理</Breadcrumb.Item>
@@ -255,6 +264,12 @@ _id: "5fd6f01835ae7a3a703cc985"
               <Form.Item
                 name="attrs"
                 label="商品属性"
+                rules={[
+                  {
+                    required: true,
+                    message: '请选择商品属性'
+                  },
+                ]}
               >
                 <Transfer
                   dataSource={attrDataSource}

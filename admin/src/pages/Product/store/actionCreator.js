@@ -70,6 +70,7 @@ export const getSaveAction = (values) => {
       const result = await request(values)
       if (result.code == 0) {
         message.success(successMessage, 1)
+        window.location.href = '/product'
       } else {
         message.error(result.message, 1)
       }
@@ -115,11 +116,18 @@ export const getClearFileListAction = () => ({
 })
 
 //处理列表分页
-export const getHandelPageAction = (page) => {
+export const getHandelPageAction = (page,keyword) => {
   return async function (dispatch) {
     dispatch(pageRequestStartAction)
     try {
-      const result = await api.getPorductList(page)
+      let options = {
+        page,
+      }
+      if (keyword) {
+        options.keyword = keyword
+      }
+      //...................................................
+      const result = await api.getPorductList(options)
       if (result.code == 0) {
         dispatch(setPage(result.data))
       }

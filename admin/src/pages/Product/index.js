@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import ProductList from './list'
 import ProductSave from './save'
+import ProductDetail from './detail'
 
 class Product extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Product extends Component {
   render() {
     return (
       <Switch>
+        <Route path="/product/detail/:productId" component={ProductDetail} />
         <Route path="/product/save/:productId?" component={ProductSave} />
         <Route exact path="/product" component={ProductList} />
       </Switch>

@@ -7,6 +7,7 @@ import { reducer as user } from 'pages/User/store'
 import { reducer as category } from 'pages/Category/store'
 import { reducer as attr } from 'pages/Attr/store'
 import { reducer as product } from 'pages/Product/store'
+import { reducer as order } from 'pages/Order/store'
 
 //合并所有组件的reducer
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
   user,
   category,
   attr,
-  product
+  product,
+  order
 })

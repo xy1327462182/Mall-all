@@ -13,7 +13,8 @@ const defaultState = fromJS({
   selectedKeys: [],
   mainImageFileList: [],
   detailImagesFileList: [],
-  richData: ''
+  richData: '',
+  keyword: ''
 })
 
 function reducer(state = defaultState, action) {
@@ -25,12 +26,13 @@ function reducer(state = defaultState, action) {
   }
   //设置分页
   if (action.type == actionTypes.SET_PAGE) {
-    const { current,list,pageSize,total } = action.payload
+    const { current,list,pageSize,total,keyword } = action.payload
     return state.merge({
       current,
       list,
       pageSize,
-      total
+      total,
+      keyword
     })
   }
   //分类数组数据

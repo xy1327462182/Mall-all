@@ -39,6 +39,9 @@ class CustomSider extends Component {
             <Menu.Item key="5">
               <NavLink to="/product"><ShoppingOutlined />商品管理</NavLink>
             </Menu.Item>
+            <Menu.Item key="6">
+              <NavLink to="/order"><ShoppingOutlined />订单管理</NavLink>
+            </Menu.Item>
           </Menu>
         </Sider>
       </div>

@@ -5,10 +5,12 @@ import {
 	Breadcrumb,
 	Table,
 	Button,
-	Switch,
+  Switch,
+  Input,
   InputNumber,
   Divider
 } from 'antd'
+const { Search } = Input;
 const { Content } = Layout
 import { Link } from 'react-router-dom'
 
@@ -17,8 +19,12 @@ import { actionCreator } from './store'
 
 class ProductList extends Component {
 	constructor(props) {
-		super(props)
-	}
+    super(props)
+    this.onSearch = this.onSearch.bind(this)
+  }
+  onSearch(value) {
+    console.log(value);
+  }
 	componentDidMount() {
 		this.props.getProductList(1)
 	}
@@ -29,6 +35,8 @@ class ProductList extends Component {
       list, 
       pageSize, 
       total,
+      keyword,
+      getProductList,
       handelUpdateIsShow,
       handelUpdateStatus,
       handelUpdateIsHot,
@@ -42,7 +50,17 @@ class ProductList extends Component {
 				dataIndex: 'name',
         key: 'name',
         width: '35%',
-				ellipsis: true,
+        ellipsis: true,
+        render: (name, record)=>{
+          if (keyword) {
+            //搜索关键字高亮处理
+            const reg = new RegExp('('+keyword+')','ig')
+            let html = name.replace(reg, '<b style="color:red;">'+keyword+'</b>')
+            return <span dangerouslySetInnerHTML={{__html:html}}></span>
+          } else {
+            return name
+          }
+        }
 			},
 			{
 				title: '是否显示在首页',
@@ -126,7 +144,7 @@ class ProductList extends Component {
 						</Button>
             <Divider type="vertical" />
 						<Button type="primary" size="small">
-							<Link to={`/product/save/${record._id}`}>查看</Link>
+							<Link to={`/product/detail/${record._id}`}>查看</Link>
 						</Button>
 					</div>
 				),
@@ -135,7 +153,7 @@ class ProductList extends Component {
 
 		return (
 			<CustomLayout>
-				<div className="AttrList">
+				<div className="ProductList">
 					<Breadcrumb style={{ margin: '16px 0' }}>
 						<Breadcrumb.Item>首页</Breadcrumb.Item>
 						<Breadcrumb.Item>商品管理</Breadcrumb.Item>
@@ -148,9 +166,16 @@ class ProductList extends Component {
 							minHeight: 542,
 						}}
 					>
+            <Search 
+              placeholder="输入关键词搜索"
+              allowClear
+              style={{ width: 400, margin: '0 10px' }}
+              onSearch={(keyword)=>getProductList(1,keyword)} 
+              enterButton 
+            />
 						<Button
 							type="primary"
-							style={{ float: 'right', marginBottom: '8px' }}
+							style={{ float: 'right', marginBottom: '20px' }}
 						>
 							<Link to="/product/save">新增商品</Link>
 						</Button>
@@ -163,8 +188,12 @@ class ProductList extends Component {
 								pageSize: pageSize,
 								total: total,
 								showSizeChanger: false,
-								onChange: (page) => getAttrList(page),
-							}}
+              }}
+              onChange={
+                (pagination) => {
+                  getProductList(pagination.current,keyword)
+                }
+              }
 							loading={{
 								spinning: isFetching,
 								size: 'large',
@@ -184,15 +213,16 @@ const mapStateToProps = (state) => {
 		list: state.get('product').get('list'),
 		pageSize: state.get('product').get('pageSize'),
 		total: state.get('product').get('total'),
-		isFetching: state.get('product').get('isFetching'),
+    isFetching: state.get('product').get('isFetching'),
+    keyword: state.get('product').get('keyword'),
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
     //获取商品列表
-		getProductList: (page) => {
-			dispatch(actionCreator.getHandelPageAction(page))
+		getProductList: (page,keyword) => {
+			dispatch(actionCreator.getHandelPageAction(page,keyword))
     },
     //更新isShow
     handelUpdateIsShow: (id, newIsShow) => {
