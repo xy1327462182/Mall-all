@@ -2,6 +2,14 @@ import api from 'api'
 import { message } from 'antd'
 import * as actionTypes from './actionTypes'
 
+const pageRequestStartAction = {
+  type: actionTypes.PAGE_REQUEST_START
+}
+
+const pageRequestEndAction = {
+  type: actionTypes.PAGE_REQUEST_END
+}
+
 const setCategories = (payload) => ({
   type: actionTypes.SET_LEVEL_CATEGORIES,
   payload
@@ -9,6 +17,11 @@ const setCategories = (payload) => ({
 
 const setAllAttrs = (payload) => ({
   type: actionTypes.SET_ALL_ATTRS,
+  payload
+})
+
+const setPage = (payload) => ({
+  type: actionTypes.SET_PAGE,
   payload
 })
 
@@ -96,7 +109,50 @@ export const getRichDataAction = (payload) => ({
   payload
 })
 
-//清除所有的fileList
+//清除所有fileList、richData、attrs
 export const getClearFileListAction = () => ({
   type: actionTypes.CLEAR_FILELIST
 })
+
+//处理列表分页
+export const getHandelPageAction = (page) => {
+  return async function (dispatch) {
+    dispatch(pageRequestStartAction)
+    try {
+      const result = await api.getPorductList(page)
+      if (result.code == 0) {
+        dispatch(setPage(result.data))
+      }
+    } catch (e) {
+      message.error('网络请求失败', 1)
+    } finally {
+      dispatch(pageRequestEndAction)
+    }
+  }
+}
+
+//修改isShow..................
+export const getUpdateIsShowAction = (id, newIsShow) => {
+  return async function (dispatch, getState) {
+    dispatch(pageRequestStartAction)
+    const page = getState().get('product').get('current')
+    try {
+      const result = await api.updateProductIsShow({
+        id,
+        page,
+        isShow: newIsShow
+      })
+      if (result.code == 0) {
+        dispatch(setPage(result.data))
+        message.success('更新成功', 1)
+      } else {
+        message.error(result.message, 1)
+      }
+    } catch (e) {
+      message.error('网络请求失败', 1)
+    } finally {
+      dispatch(pageRequestEndAction)
+    }
+  }
+}
+getUpdateIsShowAction

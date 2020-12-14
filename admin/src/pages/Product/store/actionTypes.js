@@ -1,5 +1,8 @@
+export const PAGE_REQUEST_START = 'product@page_request_start'
+export const PAGE_REQUEST_END = 'product@page_request_end'
 export const SET_LEVEL_CATEGORIES = 'product@set_level_categories'
 export const SET_ALL_ATTRS = 'product@set_all_attrs'
+export const SET_PAGE = 'product@set_page'
 export const UPDATE_SELECTED_KEYS = 'product@update_selected_keys'
 export const UPDATE_TARGET_KEYS = 'product@update_target_keys'
 export const SET_MAIN_IMAGE_FILELIST = 'product@set_mainImage_fileList'

@@ -34,4 +34,5 @@ export const API_CONFIG = {
   getAllAttrs: ['/attrs/allAttrs', 'get'],
 
   addProduct: ['/products', 'post'],
+  getPorductList: ['/products/list', 'get']
 }

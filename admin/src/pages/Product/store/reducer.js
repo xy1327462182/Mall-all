@@ -17,6 +17,12 @@ const defaultState = fromJS({
 })
 
 function reducer(state = defaultState, action) {
+  if (action.type == actionTypes.PAGE_REQUEST_START) {
+    return state.set('isFetching', true)
+  }
+  if (action.type == actionTypes.PAGE_REQUEST_END) {
+    return state.set('isFetching', false)
+  }
   //设置分页
   if (action.type == actionTypes.SET_PAGE) {
     const { current,list,pageSize,total } = action.payload
@@ -34,12 +40,6 @@ function reducer(state = defaultState, action) {
   //所有属性
   if (action.type == actionTypes.SET_ALL_ATTRS) {
     return state.set('attrDataSource', action.payload)
-  }
-  if (action.type == actionTypes.PAGE_REQUEST_START) {
-    return state.set('isFetching', true)
-  }
-  if (action.type == actionTypes.PAGE_REQUEST_END) {
-    return state.set('isFetching', false)
   }
   //更新SelectedKeys
   if (action.type == actionTypes.UPDATE_SELECTED_KEYS) {
