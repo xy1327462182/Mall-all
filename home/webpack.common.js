@@ -9,7 +9,8 @@ const getHtmlWebpackPlugin = (name, title) => ({
 	template: './src/view/'+ name +'.html', //模板文件
 	filename: name + '.html', //输出的文件名
 	//inject:'head',//脚本写在那个标签里,默认是true(在body结束后)
-	hash: true, //给生成的文件添加一个唯一的hash
+  hash: true, //给生成的文件添加一个唯一的hash
+  title: title,
 	chunks: ['common', name], //需要包含的入口中的chunk
 })
 

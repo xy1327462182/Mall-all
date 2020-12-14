@@ -34,5 +34,10 @@ export const API_CONFIG = {
   getAllAttrs: ['/attrs/allAttrs', 'get'],
 
   addProduct: ['/products', 'post'],
-  getPorductList: ['/products/list', 'get']
+  getPorductList: ['/products/list', 'get'],
+  updateProductIsShow: ['/products/isShow', 'put'],
+  updateProductStatus: ['/products/status', 'put'],
+  updateProductIsHot: ['/products/isHot', 'put'],
+  updateProductOrder: ['/products/order', 'put'],
+  getProductDetail: ['/products/detail', 'get'],
 }

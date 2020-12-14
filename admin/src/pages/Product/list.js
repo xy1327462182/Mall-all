@@ -29,7 +29,10 @@ class ProductList extends Component {
       list, 
       pageSize, 
       total,
-      handelUpdateIsShow, 
+      handelUpdateIsShow,
+      handelUpdateStatus,
+      handelUpdateIsHot,
+      handelUpdateOrder
     } = this.props
 		const dataSource = list
 
@@ -72,7 +75,7 @@ class ProductList extends Component {
 						onChange={(checked) => {
 							//更新状态
 							const newStatus = checked ? '1' : '0'
-							//handelUpdateIsShow(record._id, newIsShow)
+							handelUpdateStatus(record._id, newStatus)
 						}}
 					/>
 				),
@@ -90,7 +93,7 @@ class ProductList extends Component {
 						onChange={(checked) => {
 							//更新状态
 							const newIsHot = checked ? '1' : '0'
-							//handelUpdateIsShow(record._id, newIsShow)
+							handelUpdateIsHot(record._id, newIsHot)
 						}}
 					/>
 				),
@@ -99,7 +102,7 @@ class ProductList extends Component {
 				title: '排序',
 				dataIndex: 'order',
 				key: 'order',
-				width: '15%',
+				width: '10%',
 				render: (order, record) => (
 					<InputNumber
 						min={0}
@@ -107,7 +110,7 @@ class ProductList extends Component {
 						style={{ width: '80%' }}
 						onBlur={(ev) => {
 							if (ev.target.value != order) {
-								//handelUpdateOrder(record._id, ev.target.value)
+								handelUpdateOrder(record._id, ev.target.value)
 							}
 						}}
 					/>
@@ -119,11 +122,11 @@ class ProductList extends Component {
 				render: (text, record) => (
 					<div>
 						<Button type="primary" size="small">
-							<Link to={`/attr/save/${record._id}`}>修改</Link>
+							<Link to={`/product/save/${record._id}`}>修改</Link>
 						</Button>
             <Divider type="vertical" />
 						<Button type="primary" size="small">
-							<Link to={`/attr/save/${record._id}`}>查看</Link>
+							<Link to={`/product/save/${record._id}`}>查看</Link>
 						</Button>
 					</div>
 				),
@@ -194,7 +197,19 @@ const mapDispatchToProps = (dispatch) => {
     //更新isShow
     handelUpdateIsShow: (id, newIsShow) => {
       dispatch(actionCreator.getUpdateIsShowAction(id, newIsShow))
-    }
+    },
+    //更新上下架状态
+    handelUpdateStatus: (id, newStatus) => {
+      dispatch(actionCreator.getUpdateStatusAction(id, newStatus))
+    },
+    //更新是否热门
+    handelUpdateIsHot: (id, newIsHot) => {
+      dispatch(actionCreator.getUpdateIsHotAction(id, newIsHot))
+    },
+    //更新排序
+    handelUpdateOrder: (id, newOrder) => {
+      dispatch(actionCreator.getUpdateProductOrderAction(id, newOrder))
+    },
 	}
 }
 

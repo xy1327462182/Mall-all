@@ -131,7 +131,7 @@ export const getHandelPageAction = (page) => {
   }
 }
 
-//修改isShow..................
+//修改isShow
 export const getUpdateIsShowAction = (id, newIsShow) => {
   return async function (dispatch, getState) {
     dispatch(pageRequestStartAction)
@@ -155,4 +155,78 @@ export const getUpdateIsShowAction = (id, newIsShow) => {
     }
   }
 }
-getUpdateIsShowAction
+
+//修改上下架status
+export const getUpdateStatusAction = (id, newStatus) => {
+  return async function (dispatch, getState) {
+    dispatch(pageRequestStartAction)
+    const page = getState().get('product').get('current')
+    try {
+      const result = await api.updateProductStatus({
+        id,
+        page,
+        status: newStatus
+      })
+      if (result.code == 0) {
+        dispatch(setPage(result.data))
+        message.success('更新成功', 1)
+      } else {
+        message.error(result.message, 1)
+      }
+    } catch (e) {
+      message.error('网络请求失败', 1)
+    } finally {
+      dispatch(pageRequestEndAction)
+    }
+  }
+}
+
+//修改是否热门isHot
+export const getUpdateIsHotAction = (id, newIsHot) => {
+  return async function (dispatch, getState) {
+    dispatch(pageRequestStartAction)
+    const page = getState().get('product').get('current')
+    try {
+      const result = await api.updateProductIsHot({
+        id,
+        page,
+        isHot: newIsHot
+      })
+      if (result.code == 0) {
+        dispatch(setPage(result.data))
+        message.success('更新成功', 1)
+      } else {
+        message.error(result.message, 1)
+      }
+    } catch (e) {
+      message.error('网络请求失败', 1)
+    } finally {
+      dispatch(pageRequestEndAction)
+    }
+  }
+}
+
+//修改排序
+export const getUpdateProductOrderAction = (id, newOrder) => {
+  return async function (dispatch, getState) {
+    dispatch(pageRequestStartAction)
+    const page = getState().get('product').get('current')
+    try {
+      const result = await api.updateProductOrder({
+        id,
+        page,
+        order: newOrder
+      })
+      if (result.code == 0) {
+        dispatch(setPage(result.data))
+        message.success('更新成功', 1)
+      } else {
+        message.error(result.message, 1)
+      }
+    } catch (e) {
+      message.error('网络请求失败', 1)
+    } finally {
+      dispatch(pageRequestEndAction)
+    }
+  }
+}

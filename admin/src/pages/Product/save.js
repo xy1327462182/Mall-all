@@ -8,6 +8,7 @@ import CustomLayout from 'components/custom-layout'
 import UploadImage from 'components/upload-image'
 import RichEditor from 'components/custom-richEditor'
 import { actionCreator } from './store'
+import api from 'api'
 import { PRODUCT_MAIN_IMAGE_UPLAOD, PRODUCT_DETAIL_IMAGES_UPLOAD } from 'api/config'
 
 const layout = {
@@ -29,7 +30,7 @@ class ProductSave extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: this.props.match.params.attrId,
+      id: this.props.match.params.productId,
     }
     this.finish = this.finish.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -37,6 +38,7 @@ class ProductSave extends Component {
     this.getMainImageUrlList = this.getMainImageUrlList.bind(this)
     this.getDetailImageUrlList = this.getDetailImageUrlList.bind(this)
     this.getRichData = this.getRichData.bind(this)
+    this.handelProductDetail = this.handelProductDetail.bind(this)
     this.formRef = React.createRef()
   }
   //设置主图表单字段的值
@@ -80,12 +82,48 @@ class ProductSave extends Component {
     //清除所有的fileList、richData、attrs
     this.props.clearFileList()
   }
-  
+  //获取商品详情
+  async handelProductDetail(id) {
+    const result = await api.getProductDetail({ id })
+    if (result.code == 0) {
+      //设置表单各个字段的值
+      this.formRef.current.setFieldsValue({
+        category: result.data.category._id,
+        name: result.data.name,
+        description: result.data.description,
+        price: result.data.price,
+      })
+    }
+  }
+  /*
+  code: 0
+data:
+attrs: [{…}]
+category: {_id: "5fd6ed3335ae7a3a703cc980", name: "小米手机"}
+description: "【品质好物】RedmiK305G版，120Hz流速屏【note9pro火热抢购中】"
+detail: "<figure class="image"><img src="http://127.0.0.1:3000/product-images/1607921678491.jpg"></figure><figure class="image"><img src="http://127.0.0.1:3000/product-images/1607921681426.jpg"></figure><figure class="image"><img src="http://127.0.0.1:3000/product-images/1607921683523.jpg"></figure><figure class="image"><img src="http://127.0.0.1:3000/product-images/1607921686027.jpg"></figure>"
+images: "http://127.0.0.1:3000/product-images/1607921641218.jpg,http://127.0.0.1:3000/product-images/1607921643723.jpg,http://127.0.0.1:3000/product-images/1607921645698.jpg,http://127.0.0.1:3000/product-images/1607921648344.jpg"
+isHot: "1"
+isShow: "1"
+mainImage: "http://127.0.0.1:3000/product-images/1607921638627.jpg"
+name: "Redmi K30 5G双模 120Hz流速屏 骁龙765G 前置挖孔双摄 索尼6400万后置四摄 30W快充"
+order: 0
+payNums: 578
+price: 1799
+status: "1"
+stock: 25415
+_id: "5fd6f01835ae7a3a703cc985"
+  */
+
   componentDidMount() {
     //获取分类选择
     this.props.handelLevelCategories()
     //获取所有属性数据
     this.props.handelAllAttrs()
+    if (this.state.id) {
+      //获取商品详情
+      this.handelProductDetail(this.state.id)
+    }
   }
   render() {
     const {
