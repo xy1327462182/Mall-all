@@ -17,9 +17,12 @@ const getHtmlWebpackPlugin = (name, title) => ({
 module.exports = {
 	entry: {
 		//对象写法指定需要打包的入口文件
-		//chunk名称:入口文件路径
+    //chunk名称:入口文件路径
+    common: './src/pages/common/index.js',
 		index: './src/pages/index/index.js',
-		common: './src/pages/common/index.js',
+    login: './src/pages/login/index.js',
+    register: './src/pages/register/index.js',
+    'user-dynamic-login': './src/pages/user-dynamic-login/index.js',
 	},
 	output: {
 		filename: 'js/[name]-[chunkhash].bundle.js', //指定打包后的文件名称,不用带路径
@@ -105,6 +108,9 @@ module.exports = {
 	plugins: [
 		new htmlWebpackPlugin(getHtmlWebpackPlugin('index', '首页')),
 		new htmlWebpackPlugin(getHtmlWebpackPlugin('list', '列表页')),
+		new htmlWebpackPlugin(getHtmlWebpackPlugin('login', '登录页')),
+    new htmlWebpackPlugin(getHtmlWebpackPlugin('user-dynamic-login', '动态登录页')),
+		new htmlWebpackPlugin(getHtmlWebpackPlugin('register', '注册页')),
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].[fullhash].css', //使用模版指定输出的css文件的位置和文件名称,模版和出口的模版一致
     }),

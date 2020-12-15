@@ -1,0 +1,61 @@
+.head {
+  height: 110px;
+  border-bottom: 1px solid #52c41a;
+  background-color: #fff;
+}
+.head .logo {
+  float: left;
+  line-height: 110px;
+}
+.head .logo h1 {
+  height: 110px;
+}
+.head .logo h1 a {
+  font-size: 30px;
+  font-weight: bold;
+  color: #52c41a;
+}
+.head .head-right {
+  float: left;
+  height: 110px;
+}
+/* .head .serach-box {
+	margin-top: 18px;
+	width: 514px;
+	height: 42px;
+} */
+/* .head .serach-box .search-input input {
+	float: left;
+	padding-left: 10px;
+	width: 400px;
+	height: 38px;
+	border: 2px solid #52c41a;
+	border-right: 0;
+	outline: none;
+} */
+/* .head .serach-box .search-input .search-btn {
+	float: right;
+	width: 102px;
+	height: 42px;
+	line-height: 42px;
+	font-size: 18px;
+	text-align: center;
+	color: #fff;
+	background-color: #52c41a;
+	cursor: pointer;
+} */
+/* .head .serach-box .search-input .search-btn:hover {
+	opacity: 0.6;
+} */
+.head .nav-list .nav-item {
+  float: left;
+  margin-top: 23px;
+  margin-right: 41px;
+}
+.head .nav-list .nav-item .active {
+  color: #52c41a;
+}
+.head .nav-list .nav-item a {
+  font-size: 16px;
+  color: #333333;
+}
