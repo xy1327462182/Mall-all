@@ -11,6 +11,7 @@ import Attr from 'pages/Attr'
 import Product from 'pages/Product'
 import Order from 'pages/Order'
 import Ad from 'pages/Ad'
+import Pwd from 'pages/Pwd'
 import NotFound from 'pages/NotFound'
 
 //登录了才能访问
@@ -32,6 +33,7 @@ class App extends Component {
             <ProtectRoute path="/product" component={Product} />
             <ProtectRoute path="/order" component={Order} />
             <ProtectRoute path="/ad" component={Ad} />
+            <ProtectRoute path="/pwd" component={Pwd} />
             <LoginRoute path="/login" component={Login} />
             <Route path="*" component={NotFound} />
           </Switch>

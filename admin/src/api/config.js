@@ -15,6 +15,7 @@ export const API_CONFIG = {
   logout: ['/users/logout', 'get'],
   getUserList: ['/users/list', 'get'],
   UpdateUserActive: ['/users/isActive', 'put'],
+  pwd: ['/users/pwd', 'put'],
 
   addCategory: ['/categories', 'post'],
   updateCategory: ['/categories', 'put'],

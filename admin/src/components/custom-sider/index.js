@@ -7,7 +7,8 @@ import {
   BarsOutlined,
   ControlOutlined,
   TransactionOutlined,
-  ShoppingOutlined
+  ShoppingOutlined,
+  LockOutlined
 } from '@ant-design/icons';
 const { Sider } = Layout;
 
@@ -45,6 +46,9 @@ class CustomSider extends Component {
             </Menu.Item>
             <Menu.Item key="7">
               <NavLink to="/ad"><TransactionOutlined />广告管理</NavLink>
+            </Menu.Item>
+            <Menu.Item key="8">
+              <NavLink to="/pwd"><LockOutlined />修改密码</NavLink>
             </Menu.Item>
           </Menu>
         </Sider>
