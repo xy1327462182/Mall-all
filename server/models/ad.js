@@ -27,7 +27,7 @@ const AdSchema = new mongoose.Schema({
   },  
   isShow:{
     type:String,
-    enum:["0","1"],//0-显示 1-隐藏
+    enum:["0","1"],//0-不显示 1-显示
     default:"0"    
   },
 },{

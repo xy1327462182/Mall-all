@@ -10,9 +10,10 @@ import Category from 'pages/Category'
 import Attr from 'pages/Attr'
 import Product from 'pages/Product'
 import Order from 'pages/Order'
+import Ad from 'pages/Ad'
 import NotFound from 'pages/NotFound'
 
-//登录了才能访问首页
+//登录了才能访问
 const ProtectRoute = ({component: Component, ...rest}) => (<Route {...rest} render={()=> getUsername() ? <Component/> : <Redirect to="/login" />} />)
 
 //未登录访问首页跳转到登录页
@@ -30,6 +31,7 @@ class App extends Component {
             <ProtectRoute path="/attr" component={Attr} />
             <ProtectRoute path="/product" component={Product} />
             <ProtectRoute path="/order" component={Order} />
+            <ProtectRoute path="/ad" component={Ad} />
             <LoginRoute path="/login" component={Login} />
             <Route path="*" component={NotFound} />
           </Switch>

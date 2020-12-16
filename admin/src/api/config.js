@@ -6,6 +6,7 @@ export const VERSION = 'v1'
 export const CATEGORY_ICON_UPLOAD = SERVER + '/' + VERSION + '/categories/icons'
 export const PRODUCT_MAIN_IMAGE_UPLAOD = SERVER + '/' + VERSION + '/products/images'
 export const PRODUCT_DETAIL_IMAGES_UPLOAD = SERVER + '/' + VERSION + '/products/detailImages'
+export const AD_IMAGE_UPLOAD = SERVER + '/' + VERSION + '/ads/image'
 
 export const API_CONFIG = {
   getCaptcha: ['/users/captcha', 'get'],
@@ -41,4 +42,11 @@ export const API_CONFIG = {
   updateProductIsHot: ['/products/isHot', 'put'],
   updateProductOrder: ['/products/order', 'put'],
   getProductDetail: ['/products/detail', 'get'],
+
+  addAd: ['/ads', 'post'],
+  updateAd: ['/ads', 'put'],
+  getAdList: ['/ads/list', 'get'],
+  updateAdIsShow: ['/ads/isShow', 'put'],
+  updateAdOrder: ['/ads/order', 'put'],
+  getAdDetail: ['/ads/detail', 'get']
 }

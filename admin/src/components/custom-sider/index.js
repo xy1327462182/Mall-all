@@ -6,6 +6,7 @@ import {
   DesktopOutlined,
   BarsOutlined,
   ControlOutlined,
+  TransactionOutlined,
   ShoppingOutlined
 } from '@ant-design/icons';
 const { Sider } = Layout;
@@ -41,6 +42,9 @@ class CustomSider extends Component {
             </Menu.Item>
             <Menu.Item key="6">
               <NavLink to="/order"><ShoppingOutlined />订单管理</NavLink>
+            </Menu.Item>
+            <Menu.Item key="7">
+              <NavLink to="/ad"><TransactionOutlined />广告管理</NavLink>
             </Menu.Item>
           </Menu>
         </Sider>

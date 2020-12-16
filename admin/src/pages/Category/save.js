@@ -60,6 +60,16 @@ class CategorySave extends Component {
       }])
     }
   }
+  componentWillUnmount() {
+    //清除表单残留数据
+    this.formRef.current.setFieldsValue({
+      pid: '',
+      name: '',
+      mobileName: '',
+      icon: [],
+    })
+    this.props.handelFileList([])
+  }
   render() {
     const layout = {
       labelCol: {
