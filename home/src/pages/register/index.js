@@ -14,7 +14,12 @@ var page = {
     $('#btn_submit').on('click', function() {
       _this.handelSubmit()
     })
+    //点击获取手机验证码事件
+    $('#btn-verify-code').on('click', function() {
+      _this.handelGetVerifyCode()
+    })
   },
+  //处理表单提交
   handelSubmit: function() {
     //1.获取表单数据
     var formData = {
@@ -28,13 +33,14 @@ var page = {
     if (result.status) {
       //验证通过
       util.formErr.hide()
-      console.log('okok');
+      console.log('okok::formData::', formData);
     } else {
       //验证失败
       util.formErr.show(result.message)
     }
     //3.提交,发送请求
   },
+  //验证表单数据
   validate: function(formData) {
     var result = {
       status: false,
@@ -73,6 +79,12 @@ var page = {
       result.status = true
     }
     return result
+  },
+  //处理获取手机验证码
+  handelGetVerifyCode: function() {
+    //输入框显示
+    $('.captcha-box').show()
+    //发送请求获取图形验证码
   }
 }
 

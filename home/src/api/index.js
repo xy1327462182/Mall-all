@@ -1,48 +1,69 @@
-import axios from 'axios'
-
 //引入配置文件数据
-import { API_CONFIG, SERVER, VERSION } from './config'
-import { delUsername, goLogin } from 'util'
+var { API_CONFIG, SERVER, VERSION } = require('./config.js')
+var _util = require('util')
 
 const getApiObj = (apiConfig) => {
   let apiObj = {}
   //根据配置文件的数据，遍历生成每一个api的可调用的方法
   for (let key in apiConfig) {
-    apiObj[key] = (data) => {
-      const url = SERVER + '/' + VERSION + apiConfig[key][0] || ''
-      const method = apiConfig[key][1] || 'get'
-      //请求的结果是promise对象 return出去
-      return request(url, method, data)
+    apiObj[key] = (options) => {
+      var version = VERSION
+      if (options.version) {
+        version = options.version
+      }
+      //处理请求路径
+      let url = apiConfig[key][0] || ''
+      if (version) {
+        url = '/' + version + url
+      }
+      if (!url.startsWith('http://') && SERVER) {
+        url = SERVER + url
+      }
+      //请求方式
+      let method = apiConfig[key][1] || 'get'
+      return request({
+        url: url,
+        method: method,
+        data: options.data,
+        success: options.success,
+        error: options.error,
+        params: options.params//其他特殊的配置
+      })
     }
   }
   return apiObj
 }
 
-const request = (url, method, data) => {
-  return new Promise((resolve, reject)=>{
-    const options = { method, url }
-    if (method.toUpperCase() == 'GET') {
-      options.params = data
-    } else {
-      options.data = data
-    }
-    axios(options)
-    .then(result=>{
-      const data = result.data
-      if (data.code == 10) {
-        //没有权限 删除本地存储
-        delUsername()
+var request = (options) => {
+  let params = {}
+  if (options.params) {
+    params = options.params
+  }
+  $.ajax({
+    url: options.url,
+    method: options.method,
+    data: options.data,
+    dataType: 'json',
+    //允许携带cookie
+    xhrFields: { withCredentials: true },
+    ...params,
+    success: function (res) {
+      if (res.code == 0) {
+        options.success && options.success(res.data)
+      } else if (res.code == 1) {
+        options.error && options.error(res.message)
+      } else if (res.code == 19) {//无权限
         //跳转到登录页
-        goLogin()
-        reject('没有权限')
-      } else {
-        resolve(data)
+        _util.goLogin()
+      } else if (!res.code) {
+        options.success && options.success(res)
       }
-    })
-    .catch(err=>{
-      reject(err)
-    })
+    },
+    error: function (err) {
+      options.error && options.error('网络错误,请稍后再试')
+    }
   })
 }
 
-export default getApiObj(API_CONFIG)
+
+module.exports = getApiObj(API_CONFIG)

@@ -35,5 +35,8 @@ module.exports = {
     hide: function() {
       $('.error-item').hide().html('')
     }
+  },
+  goLogin: function() {
+    window.location.href = '/login.html'
   }
 }
