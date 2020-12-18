@@ -8,7 +8,6 @@
   padding: 30px;
   box-sizing: border-box;
   width: 410px;
-  height: 288px;
   background-color: #fff;
   overflow: hidden;
 }
@@ -82,12 +81,9 @@
   outline: none;
   border: 1px solid #bdbdbd;
 }
-.main .login img {
-  float: left;
-  width: 100px;
-  height: 32px;
-  background-color: pink;
-  cursor: pointer;
+.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 .main .login .login-sub {
   margin-bottom: 10px;
@@ -114,7 +110,8 @@
 }
 .main .login #btn-verify-code {
   height: 32px;
+  width: 100px;
 }
 .main .login #verify-code {
-  width: 120px;
+  min-width: 120px;
 }

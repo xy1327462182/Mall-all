@@ -361,7 +361,7 @@ router.post("/dynamicLogin",async (req,res)=>{
 				})
 				return;
 			}
-			if(channels.app = channel){
+			if(channels.app == channel){
 				//生成token
 				const token = hmac(Date.now().toString() + parseInt(Math.random()*10000))
 				//插入token 返回token
@@ -411,7 +411,7 @@ router.post("/dynamicLogin",async (req,res)=>{
 router.get('/logout',(req,res)=>{
 	const {channel} = req.query
 	//app端
-	if(channels.app = channel){
+	if(channels.app == channel){
 		TokenModel.deleteMany({token:req.userInfo.token})
 		.then(raw=>{
 			res.json({

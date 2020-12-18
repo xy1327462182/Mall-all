@@ -42,6 +42,9 @@ module.exports = {
   goResult: function (type) {
     window.location.href = './result.html?type=' + type
   },
+  goHome: function() {
+    window.location.href = '/'
+  },
   getParamFromUrl: function (key) {
     var query = window.location.search.substr(1)
     var reg = new RegExp('(^|&)' + key + '=' + '([^&]*)(&|$)')
