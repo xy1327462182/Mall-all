@@ -17,11 +17,21 @@
         <div class="username">
             <span class="icon1 iconfont">&#xe602;</span><input type="text" id="phone" placeholder="请输入手机号">
         </div>
-        <div class="check">
-          <input type="text" placeholder="请输入手机验证码" id="verify-code">
+        <div class="check form-item verify-code">
+          <input type="text" name="verifyCode" id="verify-code" placeholder="请输入手机验证码">
           <a href="javascript:;" class="btn" id="btn-verify-code">获取验证码</a>
+          <div class="captcha-box">
+            <div class="input-box">
+                <input type="text" id="captcha_code" name="captcha-code" placeholder="请输图形验证码">
+                <div class="captcha-img">
+
+                </div>
+            </div>
+            <a href="javascript:;" class="btn" id="btn-captcha-code">发送</a>
+          </div>
         </div>
-        <div class="login-sub"><a href="#" class="link" id="dynamic_login_submit">提交</a>
+        <div class="login-sub">
+          <a href="javascript:;" class="link" id="dynamic_login_submit">提交</a>
         </div>
         <div class="login-item">
             <a href="./login.html" class="link">已有账号，去登录</a>

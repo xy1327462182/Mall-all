@@ -23,16 +23,16 @@ var page = {
       if (!$('#btn-verify-code').hasClass('disabled')) {
         //输入框显示
         $('.captcha-box').show()
-        _this.handelGetVerifyCode()
+        _this.handelGetCaptchaCode()
       }
     })
     //点击重新获取图形验证码
     $('.captcha-img').on('click', function () {
-      _this.handelGetVerifyCode()
+      _this.handelGetCaptchaCode()
     })
     //发送手机验证码按钮点击事件
     $('#btn-captcha-code').on('click', function () {
-      _this.handelSendCaptchaCode()
+      _this.handelSendVerifyCode()
     })
   },
   //处理表单提交
@@ -106,8 +106,7 @@ var page = {
     return result
   },
   //处理获取手机验证码按钮点击事件
-  handelGetVerifyCode: function () {
-    var _this = this
+  handelGetCaptchaCode: function () {
     //发送请求获取图形验证码
     api.getCaptcha({
       success: function (res) {
@@ -118,24 +117,24 @@ var page = {
       }
     })
   },
-  handelSendCaptchaCode: function () {
+  handelSendVerifyCode: function () {
     var _this = this
     var captchaCode = $.trim($('input[name="captcha-code"]').val())
     var phone = $.trim($('input[name="phone"]').val())
-    if (!util.validate('required', captchaCode)) {
-      util.formErr.show('图形验证码不能为空')
-      return
-    }
-    if (!util.validate('captchaCode', captchaCode)) {
-      util.formErr.show('图形验证码格式不正确')
-      return
-    }
     if (!util.validate('required', phone)) {
       util.formErr.show('手机号不能为空')
       return
     }
     if (!util.validate('phone', phone)) {
       util.formErr.show('手机号格式不正确')
+      return
+    }
+    if (!util.validate('required', captchaCode)) {
+      util.formErr.show('图形验证码不能为空')
+      return
+    }
+    if (!util.validate('captchaCode', captchaCode)) {
+      util.formErr.show('图形验证码格式不正确')
       return
     }
     //验证通过

@@ -333,7 +333,7 @@ router.get("/loginVerifyCode",async (req,res)=>{
 //用户登录(验证码)
 router.post("/dynamicLogin",async (req,res)=>{
 	
-	const { phone,verifyCode,channel} = req.body
+  const { phone,verifyCode,channel} = req.body
 	
 	try{
 		//1.判断验证码
