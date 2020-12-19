@@ -1,3 +1,5 @@
+var Hogan = require('hogan.js')
+
 module.exports = {
   //验证规则
   validate: function (type, value) {
@@ -50,5 +52,8 @@ module.exports = {
     var reg = new RegExp('(^|&)' + key + '=' + '([^&]*)(&|$)')
     var result = query.match(reg)
     return result ? decodeURIComponent(result[2]) : null
+  },
+  render: function(tpl, data) {
+    return Hogan.compile(tpl).render(data)
   }
 }

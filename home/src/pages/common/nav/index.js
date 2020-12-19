@@ -1,4 +1,5 @@
 require('./index.less')
+var tpl = require('./index.tpl')
 var api = require('api')
 var util = require('util')
 
@@ -7,6 +8,8 @@ var page = {
     this.getUsername()
     this.loadCartsCount()
     this.bindEvent()
+    this.cartTimer = null
+    this.$cartContent = $('.cart-content')
   },
   //获取正在登陆的用户名
   getUsername: function() {
@@ -16,7 +19,6 @@ var page = {
         $('.user.login').show().find('.username').text(res.username)
       },
       error: function(err){
-        console.log('err::', err);
       }
     })
   },
@@ -34,15 +36,42 @@ var page = {
     $('#logout').on('click', function() {
       api.logout({
         success: function() {
-          util.goLogin()
+          // util.goLogin()
+          window.location.reload()
         }
       })
     })
     //加载购物车内容数据
     $('.cart-box').hover(function(){
-       console.log(11);
+      if (_this.cartTimer) {
+        clearTimeout(_this.cartTimer)
+      }
+      _this.cartTimer = setTimeout(function() {
+        _this.renderCartContent()
+      },400)
     }, function() {
-      console.log(22);
+      if (_this.cartTimer) {
+        clearTimeout(_this.cartTimer)
+        _this.$cartContent.hide()
+      }
+    })
+  },
+  renderCartContent: function() {
+    var _this = this;
+    _this.$cartContent.show().html('<div class="loader"></div>')
+    //发送请求
+    api.getCarts({
+      success: function(res) {
+        if (res.cartList.length === 0) {
+          _this.$cartContent.html('<span class="empty-cart">购物车中还没有商品,赶紧来购买吧!</span>')
+        } else {
+          var html = util.render(tpl, res);
+          _this.$cartContent.html(html)
+        }
+      },
+      error: function(err) {
+        _this.$cartContent.html('<span class="empty-cart">出错了，请稍后再试！</span>')
+      }
     })
   }
 }

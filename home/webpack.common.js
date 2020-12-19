@@ -51,6 +51,12 @@ module.exports = {
 					},
 					'css-loader',
 				],
+      },
+      {
+				test: /\.tpl$/,
+				use: [
+					'html-loader',
+				],
 			},
 			//处理图片
 			{
