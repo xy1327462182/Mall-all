@@ -54,6 +54,8 @@ module.exports = {
     return result ? decodeURIComponent(result[2]) : null
   },
   render: function(tpl, data) {
-    return Hogan.compile(tpl).render(data)
+    var template = Hogan.compile(tpl)
+    var html = template.render(data)
+    return html
   }
 }
