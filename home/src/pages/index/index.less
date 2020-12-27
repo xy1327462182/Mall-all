@@ -63,7 +63,17 @@
 
 
 .focus .swiper-container{
+  float: left;
+  position: relative;
   height: 440px;
+  width: 862px;
+}
+.focus .swiper-container .swiper-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 .focus .swiper-container .swiper-pagination-bullet{
   width: 20px;
@@ -72,6 +82,7 @@
 }
 .focus .swiper-container img{
   width: 100%;
+  height: 100%;
 }
 .focus .swiper-container .swiper-pagination-bullet-active{
   background-color: #52c41a;
