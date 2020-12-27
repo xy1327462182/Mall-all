@@ -3,10 +3,14 @@ require('pages/common/nav/index.js')
 require('pages/common/search/index.js')
 require('pages/common/footer/index.js')
 
-var categoriesTpl = require('./categories.tpl')
-
 var api = require('api')
 var util = require('util')
+
+var categoriesTpl = require('./categories.tpl')
+var childCategoriesTpl = require('./childCategories.tpl')
+var spinningTpl = require('./spinning.tpl')
+var spinningHtml = util.render(spinningTpl,{})
+
 var page = {
   init: function() {
     this.$categories = $('.parent-categories')
@@ -17,24 +21,27 @@ var page = {
   },
   //加载一级分类列表
   loadParentCategories: function() {
-    api.getArrayCategories({
-      success: function(res) {
-        var categoriesHtml = util.render(categoriesTpl,{
-          categories: res
-        })
-        $('.parent-categories').html(categoriesHtml)
-      },
-      error: function(err) {
-        console.log('err::', err);
-      }
-    })
+    $('.parent-categories').html(spinningHtml)
+    setTimeout(function(){
+      api.getArrayCategories({
+        success: function(res) {
+          var categoriesHtml = util.render(categoriesTpl,{
+            categories: res
+          })
+          $('.parent-categories').html(categoriesHtml)
+        },
+        error: function(err) {
+          console.log('err::', err);
+        }
+      })
+    },700)
   },
   //分类列表处的事件
   bindCategoriesEvent: function() {
     var _this = this
     _this.$categories.on('mouseenter', '.keyword-item', function() {
       //显示子分类面板
-      $('.child-categories').show()
+      $('.child-categories').html(spinningHtml).show()
       var $this = $(this)
       if (_this.categoryTimer) {
         clearTimeout(_this.categoryTimer)
@@ -50,7 +57,8 @@ var page = {
               pid: pid
             },
             success: function(res) {
-              console.log(res);
+              _this.renderChildCategories(res)
+              _this.cache[pid] = res
             },
             error: function(err) {
               console.log(err);
@@ -59,16 +67,22 @@ var page = {
         }
       },300)
     })
-    _this.$categories.on('mouseleave', '.keyword-item', function() {
+    //鼠标移出，子分类面板隐藏
+    $('.focus .categories').on('mouseleave', function(ev) {
+      ev.stopPropagation()
       if (_this.categoryTimer) {
         clearTimeout(_this.categoryTimer)
       }
-      
+      //子分类面板隐藏
+      $('.child-categories').html('').hide()
     })
   },
   //渲染子分类面板
   renderChildCategories: function(categories) {
-    console.log('categories::', categories);
+    var childCategoriesHtml = util.render(childCategoriesTpl, {
+      categories: categories
+    })
+    $('.child-categories').html(childCategoriesHtml)
   }
 }
 

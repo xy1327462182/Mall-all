@@ -26,9 +26,11 @@ var page = {
   init: function() {
     this.$input = $('.search-input')
     this.$layer = $('.search-layer')
+    this.$navLinks = $('.head-right .nav-list .nav-item a')
     //输入防抖定时器
     this.inputTimer = null
     this.initInputValue()
+    this.setActiveNav()
     this.bindEvent()
   },
   initInputValue: function() {
@@ -37,6 +39,16 @@ var page = {
       this.$input.val(keyword)
     } else {
       this.$input.val('')
+    }
+  },
+  setActiveNav: function() {
+    var nav = util.getParamFromUrl('nav') || '1'
+    if (nav == 1) {
+      this.$navLinks.removeClass('active').eq(0).addClass('active')
+    } else if (nav == 2) {
+      this.$navLinks.removeClass('active').eq(1).addClass('active')
+    } else if (nav ==3) {
+      this.$navLinks.removeClass('active').eq(2).addClass('active')
     }
   },
   bindEvent: function() {
@@ -130,7 +142,6 @@ var page = {
           keyword: keyword
         },
         success: function(res){
-          console.log(res);
           if (res.length > 0) {
             //存入缓存中
             cache.setData(keyword, res)
