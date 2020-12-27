@@ -36,7 +36,7 @@ var page = {
     if (keyword) {
       this.$input.val(keyword)
     } else {
-      this.$input.val('12')
+      this.$input.val('')
     }
   },
   bindEvent: function() {
