@@ -63,18 +63,12 @@
 
 
 .focus .swiper-container{
-  float: left;
   position: relative;
+  float: left;
   height: 440px;
   width: 862px;
 }
-.focus .swiper-container .swiper-wrapper {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
+
 .focus .swiper-container .swiper-pagination-bullet{
   width: 20px;
   height: 20px;
@@ -94,7 +88,7 @@
 .hot .hot-hd{
   height: 300px;
   box-sizing: border-box;
-  background-image: linear-gradient(@link-color,@primary-color);
+  background-image: linear-gradient(#52c41a,@primary-color);
   opacity: .75;
   float: left;
   text-align: center;
@@ -110,6 +104,7 @@
   }
 }
 .hot .hot-bd{
+  position: relative;
   height: 280px;
   float: left;
 }
@@ -150,31 +145,42 @@
   margin-right: 0px;
 }
 //电梯
-.elevator{
+#elevator{
   position: fixed;
   top:50%;
-  left:50%;
-  margin-left: -660px;
+  right: 10px;
+  width: 60px;
+  background-color: #fff;
+  padding: 0 14px;
+  box-sizing: border-box;
 }
-.elevator-item,.backToTop{
-  display: block;
-  width: 40px;
-  height: 35px;
-  line-height: 35px;
-  text-align: center;
-  border-top: 1px solid @border-color-base;
+.elevator-item {
+  width: 32px;
+  height: 40px;
+  padding: 10px 0;
+  font-size: 16px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
-.elevator-item:hover .elevator-item-num,
-.backToTop:hover .elevator-item-num,
-.elevator-active .elevator-item-num{
-  display: none;
-}
-.elevator-item:hover .elevator-item-text,
-.backToTop:hover .elevator-item-text,
-.elevator-active .elevator-item-text{
-  display: block;
-  color: @primary-color;
-}
-.elevator-item-text{
-  display: none;
-}  
+// .elevator-item,.backToTop{
+//   display: block;
+//   width: 40px;
+//   height: 35px;
+//   line-height: 35px;
+//   text-align: center;
+//   border-top: 1px solid @border-color-base;
+// }
+// .elevator-item:hover .elevator-item-num,
+// .backToTop:hover .elevator-item-num,
+// .elevator-active .elevator-item-num{
+//   display: none;
+// }
+// .elevator-item:hover .elevator-item-text,
+// .backToTop:hover .elevator-item-text,
+// .elevator-active .elevator-item-text{
+//   display: block;
+//   color: @primary-color;
+// }
+// .elevator-item-text{
+//   display: none;
+// }  
