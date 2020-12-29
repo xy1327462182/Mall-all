@@ -20,14 +20,19 @@ var elevatorTpl = require('./elevator.tpl')
 
 var page = {
   init: function () {
+    this.$win = $(window)
     this.$categories = $('.parent-categories')
     this.categoryTimer = null
+    this.$floors = null
+    this.$elevator = $('#elevator')
+    this.$elevatorItems = null
     this.cache = {}
     this.loadParentCategories()
     this.loadSwiper()
     this.loadHotProducts()
     this.loadFloor()
     this.bindCategoriesEvent()
+    this.bindFloorsEvent()
   },
   //加载一级分类列表
   loadParentCategories: function () {
@@ -145,6 +150,7 @@ var page = {
   },
   //加载楼层
   loadFloor: function () {
+    var _this = this
     api.getFloors({
       success: function (res) {
         var floorsHtml = util.render(floorTpl, {
@@ -152,12 +158,67 @@ var page = {
         })
         $('.floor-wrap').html(floorsHtml)
         new LazyLoad($("img.lazyload"));
+        _this.$floors = $('.floor-wrap .floor-box')
+
+        var elevatorHtml = util.render(elevatorTpl, {
+          floors: res
+        })
+        $('#elevator').html(elevatorHtml)
+        _this.$elevatorItems = $('.elevator-item')
       },
       error: function (err) {
         console.log(err);
       }
     })
-  }
+  },
+  bindFloorsEvent: function () {
+    var _this = this
+    //点击楼层到达指定位置
+    _this.$elevator.on('click', '.elevator-item', function () {
+      var num = $(this).index()
+      console.log(num);
+      $('html, body').animate({
+        scrollTop: _this.$floors.eq(num).offset().top
+      })
+    })
+    //置顶
+    _this.$elevator.on('click', '.elevator-backTop', function () {
+      $('html, body').animate({
+        scrollTop: 0
+      })
+    })
+    this.$win.on('scroll resize load', function () {
+      clearTimeout(_this.$elevator.showElevatorTimer);
+      _this.$elevator.showElevatorTimer = setTimeout(_this.setElevator.bind(_this), 50);
+    });
+  },
+  //设置楼层电梯
+  setElevator: function () {
+    var num = this.getFloorNum();
+    if (num == -1) {
+      this.$elevator.fadeOut();
+    } else {
+      this.$elevator.fadeIn();
+      this.$elevatorItems.removeClass('elevator-active');
+      this.$elevatorItems.eq(num).addClass('elevator-active');
+    }
+  },
+  //获取楼层号
+  getFloorNum() {
+    //默认楼层号
+    var _this = this
+    var num = -1;
+    if (this.$floors) {
+      this.$floors.each(function (index, elem) {
+        num = index;
+        if ($(elem).offset().top > _this.$win.scrollTop() + _this.$win.height() / 2) {
+          num = index - 1;
+          return false;
+        }
+      });
+    }
+    return num;
+  },
 }
 
 $(function () {

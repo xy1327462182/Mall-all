@@ -149,18 +149,25 @@
   position: fixed;
   top:50%;
   right: 10px;
+  transform: translate(0, -50%);
   width: 60px;
   background-color: #fff;
   padding: 0 14px;
   box-sizing: border-box;
 }
-.elevator-item {
+.elevator-item, .elevator-backTop {
   width: 32px;
   height: 40px;
   padding: 10px 0;
   font-size: 16px;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
+}
+#elevator .elevator-backTop {
+  border-bottom: 0;
+}
+.elevator-active{
+  color: #52c41a;
 }
 // .elevator-item,.backToTop{
 //   display: block;
