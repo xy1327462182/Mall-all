@@ -20,6 +20,7 @@ module.exports = {
     //chunk名称:入口文件路径
     common: './src/pages/common/index.js',
 		index: './src/pages/index/index.js',
+		list: './src/pages/list/index.js',
     login: './src/pages/login/index.js',
     register: './src/pages/register/index.js',
     'user-dynamic-login': './src/pages/user-dynamic-login/index.js',

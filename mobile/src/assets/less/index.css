@@ -1,8 +1,7 @@
 html {
   color: #000;
-  background: #FFF
+  background: #FFF;
 }
-
 body,
 div,
 dl,
@@ -29,19 +28,16 @@ blockquote,
 th,
 td {
   margin: 0;
-  padding: 0
+  padding: 0;
 }
-
 table {
   border-collapse: collapse;
-  border-spacing: 0
+  border-spacing: 0;
 }
-
 fieldset,
 img {
-  border: 0
+  border: 0;
 }
-
 address,
 caption,
 cite,
@@ -52,19 +48,16 @@ strong,
 th,
 var {
   font-style: normal;
-  font-weight: normal
+  font-weight: normal;
 }
-
 ol,
 ul {
-  list-style: none
+  list-style: none;
 }
-
 caption,
 th {
-  text-align: left
+  text-align: left;
 }
-
 h1,
 h2,
 h3,
@@ -72,9 +65,8 @@ h4,
 h5,
 h6 {
   font-size: 100%;
-  font-weight: normal
+  font-weight: normal;
 }
-
-img{
+img {
   width: 100%;
 }

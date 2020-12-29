@@ -51,7 +51,6 @@ router.get("/arrayCategories",(req,res)=>{
 router.get("/childArrayCategories",(req,res)=>{
 	const limit = parseInt(req.query.limit || 10)
   const pid = req.query.pid || 0
-  console.log(pid);
 	CategoryModel.find({pid:pid,isShow:1},"-createdAt -updatedAt -__v -pid")
 	.limit(limit)
 	.sort({order:-1,_id:-1})

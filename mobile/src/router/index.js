@@ -6,6 +6,7 @@ import Category from 'pages/category'
 import Cart from 'pages/cart'
 import User from 'pages/user'
 import Search from 'pages/search'
+import Detail from 'pages/detail'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '/detail',
+    name: 'Detail',
+    component: Detail
   },
   {
     path: '/',
