@@ -5,6 +5,7 @@ import Home from 'pages/home'
 import Category from 'pages/category'
 import Cart from 'pages/cart'
 import User from 'pages/user'
+import Search from 'pages/search'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/user',
     name: 'User',
     component: User
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   },
   {
     path: '/',

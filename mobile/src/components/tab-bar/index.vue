@@ -1,6 +1,9 @@
 <template>
   <div class="tab-bar">
     <van-tabbar 
+      fixed
+      border
+      route
       v-model="active"
       active-color="#1DA57A" 
       @change="onChange"
@@ -44,14 +47,8 @@ export default {
   },
   methods:{
     onChange(index){
-      sessionStorage.setItem('tabBar-active-index', index)
+      
     }
   },
-  mounted() {
-    let active = sessionStorage.getItem('tabBar-active-index')
-    if (active) {
-      this.active = parseInt(active)
-    }
-  }
 }
 </script>

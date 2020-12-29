@@ -5,6 +5,8 @@ import store from './store'
 
 //全局加载vant组件
 import './plugins/vant'
+//计算根元素的font-size
+import 'amfe-flexible'
 
 //引入过滤器
 import filters from './filters'
