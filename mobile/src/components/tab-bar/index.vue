@@ -7,6 +7,7 @@
       v-model="active"
       active-color="#1DA57A" 
       @change="onChange"
+      @click.stop="handleClick"
     >
 			<van-tabbar-item 
         icon="wap-home-o"
@@ -48,6 +49,9 @@ export default {
   methods:{
     onChange(index){
       
+    },
+    handleClick() {
+
     }
   },
 }

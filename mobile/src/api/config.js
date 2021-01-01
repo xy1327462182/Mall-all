@@ -6,5 +6,7 @@ export const VERSION = 'v1'
 export const API_CONFIG = {
   getPositionAds: ['/ads/positionAds', 'get'],
   getArrayCategories: ['/categories/arrayCategories', 'get'],
+  getLevelCategories: ['/categories/levelCategories', 'get'],
+  getTreeCategories: ['/categories/treeCategories', 'get'],
   getFloors: ['/floors', 'get'],
 }

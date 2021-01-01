@@ -1,21 +1,30 @@
 <template>
   <div class="category">
     <Search :current="current" />
-
-    <van-row>
-      <van-col span="6">
-        <div class="parent_cate_container">
-          <CategoriesList></CategoriesList>
-        </div>
-      </van-col>
-      <van-col span="18">span: 8</van-col>
-    </van-row>
+    <div class="parent_cate">
+      <Scroll>
+        <ul class="content">
+          <li>
+            <van-sidebar v-model="activeKey" @change="onChange">
+              <van-sidebar-item
+                v-for="item in parent_cate_list"
+                :key="item._id"
+                :title="item.mobileName"
+              />
+            </van-sidebar>
+          </li>
+        </ul>
+      </Scroll>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+import { LOAD_PARENT_CATEGORIES } from "./store/types";
+import Scroll from "components/scroll";
 import Search from "components/search";
-import CategoriesList from "components/category/categoriesList";
+
 export default {
   name: "Category",
   data() {
@@ -24,19 +33,44 @@ export default {
         page: "category",
         color: "#fff",
       },
+      activeKey: 0,
     };
+  },
+  computed: {
+    ...mapState({
+      parent_cate_list: (state) => state.category.parent_cate_list,
+    }),
   },
   components: {
     Search,
-    CategoriesList,
+    Scroll,
+  },
+  methods: {
+    ...mapActions([LOAD_PARENT_CATEGORIES]),
+    getChildCategories(pid) {
+      console.log(pid);
+    },
+    onChange() {
+      console.log("onChange...");
+    },
+  },
+  mounted() {
+    this[LOAD_PARENT_CATEGORIES]();
   },
 };
 </script>
 
 <style lang="less" scoped>
-.category {
-  .parent_cate_container{
-    height: auto;
+.parent_cate {
+  .parent_cate_item {
+    width: 89px;
+    height: 46px;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    font-size: 15px;
   }
 }
 </style>

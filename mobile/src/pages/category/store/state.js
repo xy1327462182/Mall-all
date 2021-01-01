@@ -1,3 +1,3 @@
 export default {
-  list: []
+  parent_cate_list: []
 }

@@ -1,11 +1,7 @@
+import { LOAD_PARENT_CATEGORIES } from './types'
+
 export default {
-  loadItem(state, payload) {
-    state.list = payload
-  },
-  addItem(state, payload) {
-    state.list.push(payload)
-  },
-  delItem(state, payload) {
-    state.list = state.list.filter(item=>item.id != payload)
+  [LOAD_PARENT_CATEGORIES](state, payload) {
+    state.parent_cate_list = payload
   }
 }
