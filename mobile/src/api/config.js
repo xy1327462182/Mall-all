@@ -8,5 +8,6 @@ export const API_CONFIG = {
   getArrayCategories: ['/categories/arrayCategories', 'get'],
   getLevelCategories: ['/categories/levelCategories', 'get'],
   getTreeCategories: ['/categories/treeCategories', 'get'],
+  getChildArrayCategories: ['/categories/childArrayCategories', 'get'],
   getFloors: ['/floors', 'get'],
 }

@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import { GET_FLOORS } from "./store/types";
 import Product from 'components/product'
 
 export default {
@@ -23,17 +21,12 @@ export default {
   components:{
     Product
   },
-  computed: {
-    ...mapState({
-      floors: (state) => state.floor.floors,
-    }),
-  },
-  methods: {
-    ...mapActions([GET_FLOORS]),
-  },
-  mounted() {
-    this[GET_FLOORS]();
-  },
+  props:{
+    floors:{
+      type: Array,
+      default: []
+    }
+  }
 };
 </script>
 

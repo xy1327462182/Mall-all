@@ -15,9 +15,6 @@
 import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
-import { mapState, mapActions } from "vuex";
-import { GET_ADS } from "./store/types";
-
 export default {
   data() {
     return {
@@ -33,24 +30,21 @@ export default {
       },
     };
   },
+  props:{
+    banners:{
+      type: Array,
+      default: []
+    }
+  },
   components: {
     Swiper,
     SwiperSlide,
   },
-  computed: {
-    ...mapState({
-      banners: (state) => state.swiper.banners,
-    }),
-  },
   directives: {
     swiper: directive,
   },
-  methods: {
-    ...mapActions([GET_ADS]),
-  },
   mounted() {
     this.mySwiper.slideTo(1, 1000, true);
-    this[GET_ADS]();
   },
 };
 </script>

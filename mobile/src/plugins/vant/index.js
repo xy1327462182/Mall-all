@@ -9,6 +9,8 @@ import {
   Row,
   Sidebar, 
   SidebarItem,
+  Overlay,
+  Loading 
 } from 'vant';
 
 Vue.use(Tabbar);
@@ -20,3 +22,5 @@ Vue.use(Col);
 Vue.use(Row);
 Vue.use(Sidebar);
 Vue.use(SidebarItem);
+Vue.use(Overlay);
+Vue.use(Loading);

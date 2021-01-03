@@ -1,1 +1,0 @@
-export const GET_FLOORS = 'home@floor@get_floors'

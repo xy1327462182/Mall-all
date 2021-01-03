@@ -15,22 +15,14 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import { GET_CATEGORIES } from "./store/types";
-
 export default {
   name: "Nav",
-  computed: {
-    ...mapState({
-      navList: (state) => state.nav.navList,
-    }),
-  },
-  methods: {
-    ...mapActions([GET_CATEGORIES]),
-  },
-  mounted() {
-    this[GET_CATEGORIES]();
-  },
+  props:{
+    navList:{
+      type: Array,
+      default: []
+    }
+  }
 };
 </script>
 

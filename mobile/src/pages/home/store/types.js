@@ -1,0 +1,7 @@
+export const BACK_TOP_SHOW = 'home@back_top_show'
+export const BACK_TOP_HIDE = 'home@back_top_hide'
+export const ADD_AJAXTIMES = 'home@ajax_times_add'
+export const DEC_AJAXTIMES = 'home@ajax_times_dec'
+export const GET_ADS = 'home@get_ads'
+export const GET_CATEGORIES = 'home@get_categories'
+export const GET_FLOORS = 'home@get_floors'

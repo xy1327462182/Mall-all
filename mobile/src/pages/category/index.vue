@@ -1,18 +1,27 @@
 <template>
   <div class="category">
     <Search :current="current" />
-    <div class="parent_cate">
-      <Scroll>
-        <ul class="content">
-          <li>
-            <van-sidebar v-model="activeKey" @change="onChange">
-              <van-sidebar-item
-                v-for="item in parent_cate_list"
-                :key="item._id"
-                :title="item.mobileName"
-              />
-            </van-sidebar>
-          </li>
+    <div class="categories_content">
+      <Scroll class="wrapper parent_cate">
+        <van-sidebar v-model="activeKey" @change="onChange" class="content">
+          <van-sidebar-item title="热门推荐" />
+          <van-sidebar-item
+            v-for="item in parent_cate_list"
+            :key="item._id"
+            :title="item.mobileName"
+          />
+        </van-sidebar>
+      </Scroll>
+      <Scroll class="wrapper child_cate">
+        <ul>
+          <li>1213</li>
+          <li>1213</li>
+          <li>1213</li>
+          <li>1213</li>
+          <li>1213</li>
+          <li>1213</li>
+          <li>1213</li>
+          <li>1213</li>
         </ul>
       </Scroll>
     </div>
@@ -50,8 +59,8 @@ export default {
     getChildCategories(pid) {
       console.log(pid);
     },
-    onChange() {
-      console.log("onChange...");
+    onChange(index) {
+      console.log("onChange...", index);
     },
   },
   mounted() {
@@ -61,16 +70,26 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.parent_cate {
-  .parent_cate_item {
-    width: 89px;
-    height: 46px;
-    background-color: #f8f8f8;
+.category {
+  .categories_content {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #333;
-    font-size: 15px;
+    flex-flow: row nowrap;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 50px;
+    bottom: 50px;
+    .parent_cate {
+      flex: 2.5;
+      overflow: hidden;
+    }
+    .child_cate {
+      flex: 7.5;
+      overflow: hidden;
+    }
+    .content{
+      width: 100%;
+    }
   }
 }
 </style>
