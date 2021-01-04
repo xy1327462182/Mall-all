@@ -1,0 +1,15 @@
+/* components/SearchInput/SearchInput.wxss */
+.SearchInput{
+  display: flex;
+  flex-flow: row nowrap;
+  height: 90rpx;
+}
+.SearchInput .left_icon{
+  flex: 1;
+}
+.SearchInput .center_input{
+  flex: 5;
+}
+.SearchInput .right_content{
+  flex: 1;
+}

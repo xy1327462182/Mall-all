@@ -1,0 +1,5 @@
+<view class="SearchInput">
+  <view class="left_icon">1</view>
+  <input class="center_input">2</input>
+  <view class="right_content">3</view>
+</view>

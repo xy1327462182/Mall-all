@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "SearchInput": "../../components/SearchInput/SearchInput"
+  },
+  "navigationBarBackgroundColor": "#07c160",
+  "navigationBarTitleText": "SortMall"
+}

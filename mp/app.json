@@ -1,0 +1,52 @@
+{
+  "pages":[
+    "pages/home/home",
+    "pages/category/category",
+    "pages/list/list",
+    "pages/cart/cart",
+    "pages/user/user",
+    "pages/detail/detail",
+    "pages/order/order",
+    "pages/order-confirm/order-confirm",
+    "pages/order-detail/order-detail",
+    "pages/search/search"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#52c41a",
+    "navigationBarTitleText": "SortMall商城",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#ff5171",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "/tabBarIco/home1.png",
+        "selectedIconPath": "/tabBarIco/home2.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "/tabBarIco/cate1.png",
+        "selectedIconPath": "/tabBarIco/cate2.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "/tabBarIco/shopcar1.png",
+        "selectedIconPath": "/tabBarIco/shopcar2.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "/tabBarIco/mine1.png",
+        "selectedIconPath": "/tabBarIco/mine2.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
